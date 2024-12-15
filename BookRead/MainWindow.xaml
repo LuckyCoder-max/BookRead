@@ -7,6 +7,8 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-
+        <Button Name="OpenButton" Content="Open" VerticalAlignment="Top" HorizontalAlignment="Left" Width="100" Height="30" Margin="10" Click="OpenButton_Click"/>
+        <TextBlock x:Name="myTextBox" VerticalAlignment="Bottom" HorizontalAlignment="Stretch" TextWrapping="Wrap"></TextBlock>
+        <WindowsFormsHost Name="PdfHost" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="10,50,10,10"/>
     </Grid>
 </Window>
