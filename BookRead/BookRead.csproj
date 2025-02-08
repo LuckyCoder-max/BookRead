@@ -9,10 +9,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="PdfiumViewer.Updated" Version="2.14.4" />
-    <PackageReference Include="PDFsharp" Version="6.1.1" />
-    <PackageReference Include="Syncfusion.EJ2.PdfViewer.AspNet.Core.Windows" Version="27.2.5" />
-    <PackageReference Include="VersOne.Epub" Version="3.3.2" />
+    <PackageReference Include="EpubCore" Version="1.6.2" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2957.106" />
   </ItemGroup>
 
 </Project>
