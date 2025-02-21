@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="EpubCore" Version="1.6.2" />
-    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2957.106" />
+    <PackageReference Include="Microsoft.Web.WebView2" Version="1.0.3065.39" />
   </ItemGroup>
 
 </Project>
