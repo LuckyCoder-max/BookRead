@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -9,6 +9,9 @@ using Microsoft.Web.WebView2.Wpf;
 using EpubCore;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using GroupDocs.Viewer.Options;
+using GroupDocs.Viewer;
+using GroupDocs.Viewer.Results;
 
 namespace BookReader
 {
@@ -24,8 +27,8 @@ namespace BookReader
         {
             OpenFileDialog openDialog = new OpenFileDialog
             {
-                Filter = "PDF Files|*.pdf|EPUB Files|*.epub",
-                Title = "Choose a PDF or EPUB file"
+                Filter = "PDF Files|*.pdf|EPUB Files|*.epub|DJVU Files|*.djvu",
+                Title = "Choose a PDF, EPUB or DJVU file"
             };
 
             if (openDialog.ShowDialog() == true)
@@ -41,6 +44,10 @@ namespace BookReader
                 {
                     ShowEpub(filePath);
                 }
+                else if (extension == ".djvu")
+                {
+                    ShowDjvu(filePath);
+                }
             }
         }
 
@@ -51,6 +58,18 @@ namespace BookReader
             ContentGrid.Children.Add(webView);
         }
 
+        private void ShowDjvu(string filePath)
+        {
+            string pdfFilePath = DjvuToPdf(filePath);
+            if (!string.IsNullOrEmpty(pdfFilePath))
+            {
+                ShowPdf(pdfFilePath);
+            }
+            else
+            {
+                MessageBox.Show("Failed to open DJVU file.");
+            }
+        }
         private void ShowEpub(string filePath)
         {
             try
@@ -122,6 +141,26 @@ namespace BookReader
             else
             {
                 return "[No content]";
+            }
+        }
+        private string DjvuToPdf(string djvuFilePath)
+        {
+            try
+            {
+                string outputPdfPath = Path.Combine(Path.GetTempPath(), Path.GetFileNameWithoutExtension(djvuFilePath) + ".pdf");
+
+                using (Viewer viewer = new Viewer(djvuFilePath))
+                {
+                    PdfViewOptions options = new PdfViewOptions(outputPdfPath);
+                    viewer.View(options);
+                }
+
+                return outputPdfPath;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error converting DJVU to PDF: {ex.Message}");
+                return null;
             }
         }
     }
